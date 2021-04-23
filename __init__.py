@@ -33,3 +33,4 @@ def fractal(fractal_type):
 if __name__ == "__main__":
 	# add debug and doesn't need to rerun after every change
     app.run(debug=True)
+    print(akarmi)
