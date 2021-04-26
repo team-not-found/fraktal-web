@@ -1,33 +1,50 @@
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, url_for, render_template, request, Markup, jsonify
+import io, base64
 import fraktal_py as fp
-from pylab import *
+from matplotlib.figure import Figure
+import numpy as np
+
+# generate encoded matplotlib image from fractal parameters
+def generateEncodedFractalImage(fractal_type, fractal_stepsize, fractal_resolution):
+	if fractal_type == "fern":
+		fractal = fp.Fern()
+		fractal.generateFractal(int(fractal_resolution.split("_")[0]), int(fractal_resolution.split("_")[1]), int(fractal_stepsize))
+		# Preprocessing (?)
+		mat = np.log(np.asarray(fractal.density_map) + 1.0)
+
+		# Plotting
+		fig = Figure()
+		ax = fig.subplots()
+		#ax.matshow(np.random.random((2000, 1000)))
+		ax.matshow(mat)
+
+		# Encoding
+		buf = io.BytesIO()
+		fig.savefig(buf, format="png")
+		buf.seek(0)
+		plot_url = base64.b64encode(buf.getbuffer()).decode("ascii")
+	else:
+		plot_url = ""
+	return plot_url
 
 app = Flask(__name__)
 
-# Render home page from external html file.
-@app.route("/", methods=["GET", "POST"])
-@app.route("/home", methods=["GET", "POST"])
-def home():
-	if request.method == "POST":
-		# Get the type, stepsize and resolution of fractal from form by 'name' attribute 
-		fractal_type = request.form["type"]
-		fractal_stepsize = request.form["stepsize"]
-		fractal_resolution = request.form["resolution"]
-		if fractal_type == "fern":
-			fractal = fp.Fern()
-			fractal.generateFractal(int(fractal_resolution.split("_")[0]), int(fractal_resolution.split("_")[1]), int(fractal_stepsize))
-			mat = log(asarray(fractal.density_map) + 1.0)
-			matshow(mat)
-			savefig("static/"+fractal_type+".png", dpi=300)
-		return redirect(url_for("fractal", fractal_type=fractal_type))
-	else:
-		return render_template("index.html")
+plot_fractal = ""
 
-# Add another page.
-@app.route("/<fractal_type>")
-def fractal(fractal_type):
-	# Pass arguments to page 
-	return render_template("fractal.html", fractal_type=fractal_type)
+@app.route("/update_fractal", methods=["POST"])
+def updateFractal():
+	# Generate encoded fractal data and html image
+	fractal_type = "fern"
+	fractal_stepsize = "100000"
+	fractal_resolution = "1920_1080"
+	plot_url = generateEncodedFractalImage(fractal_type, fractal_stepsize, fractal_resolution)
+	plot_fractal = Markup('<img src="data:image/png;base64, {}">'.format(plot_url))
+	return jsonify("", render_template("image.html", plot_fractal = plot_fractal))
+
+# Render home page from external html file.
+@app.route("/")
+def home():
+	return render_template("index.html", plot_fractal = plot_fractal)
 
 # Run the server.
 if __name__ == "__main__":

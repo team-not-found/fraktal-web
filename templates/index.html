@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- Include this to use jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $("#generate").click(function(e) {
+        e.preventDefault();
+        $.ajax({
+          url: "/update_fractal",
+          type: "POST",
+          dataType: "json",
+          success: function(data) {
+            $(fractal_holder).replaceWith(data)
+          }
+        });
+      });
+    });
+  </script>
+
   <title>team-not-found</title>
 </head>
 <body>
   <h1>Webpage of team-not-found</h1>
-  <form action="#" method="post">
+  <form method="post">
     <label for="types">Choose a fractal:</label>
     <select name="type">
       <option value="fern">Fern</option>
@@ -26,7 +45,10 @@
       <option value="40000000">40,000,000</option>
     </select>
     <br>
-    <input type="submit" name="submit-fractal" value="Generate!">
+    <button id="generate", type="button">Generate!</button>
   </form>
+  <div id = "fractal_holder">
+    {{plot_fractal}}
+  </div>
 </body>
 </html>
