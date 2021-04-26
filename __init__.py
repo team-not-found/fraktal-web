@@ -1,7 +1,7 @@
-from flask import Flask, redirect, url_for, render_template, request, Markup
+from flask import Flask, redirect, url_for, render_template, request, Markup, jsonify
 import io, base64
 import fraktal_py as fp
-import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
 import numpy as np
 
 # generate encoded matplotlib image from fractal parameters
@@ -13,17 +13,16 @@ def generateEncodedFractalImage(fractal_type, fractal_stepsize, fractal_resoluti
 		mat = np.log(np.asarray(fractal.density_map) + 1.0)
 
 		# Plotting
-		fig, ax = plt.subplots(figsize=(15, 8))
-		plt.matshow(mat)
-		
+		fig = Figure()
+		ax = fig.subplots()
+		#ax.matshow(np.random.random((2000, 1000)))
+		ax.matshow(mat)
+
 		# Encoding
-		img = io.BytesIO()
-		plt.savefig(img, format="png")
-		img.seek(0)
-		plot_url = base64.b64encode(img.getvalue()).decode()
-		
-		# Close the image to delete from memory
-		plt.close()
+		buf = io.BytesIO()
+		fig.savefig(buf, format="png")
+		buf.seek(0)
+		plot_url = base64.b64encode(buf.getbuffer()).decode("ascii")
 	else:
 		plot_url = ""
 	return plot_url
@@ -36,14 +35,14 @@ plot_fractal = ""
 def updateFractal():
 	# Generate encoded fractal data and html image
 	fractal_type = "fern"
-	fractal_stepsize = 100000
+	fractal_stepsize = "100000"
 	fractal_resolution = "1920_1080"
 	plot_url = generateEncodedFractalImage(fractal_type, fractal_stepsize, fractal_resolution)
 	plot_fractal = Markup('<img src="data:image/png;base64, {}">'.format(plot_url))
+	return jsonify("", render_template("image.html", plot_fractal = plot_fractal))
 
 # Render home page from external html file.
 @app.route("/")
-@app.route("/home")
 def home():
 	return render_template("index.html", plot_fractal = plot_fractal)
 
