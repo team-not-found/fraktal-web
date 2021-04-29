@@ -17,6 +17,7 @@ def generateEncodedFractalImage(fractal_type, fractal_stepsize, fractal_resoluti
 		ax = fig.subplots()
 		#ax.matshow(np.random.random((2000, 1000)))
 		ax.matshow(mat)
+		ax.axis("off")
 
 		# Encoding
 		buf = io.BytesIO()
@@ -30,16 +31,26 @@ def generateEncodedFractalImage(fractal_type, fractal_stepsize, fractal_resoluti
 app = Flask(__name__)
 
 plot_fractal = ""
+img_x = ""
+img_y = ""
 
+# Generate encoded fractal data and html image
 @app.route("/update_fractal", methods=["POST"])
 def updateFractal():
-	# Generate encoded fractal data and html image
-	fractal_type = "fern"
-	fractal_stepsize = "100000"
-	fractal_resolution = "1920_1080"
+	# The form data was sent by jQuery and can be catched by 'request.form'
+	fractal_type = request.form["type"]
+	fractal_stepsize = request.form["stepsize"]
+	fractal_resolution = request.form["resolution"]
 	plot_url = generateEncodedFractalImage(fractal_type, fractal_stepsize, fractal_resolution)
-	plot_fractal = Markup('<img src="data:image/png;base64, {}">'.format(plot_url))
+	plot_fractal = Markup('<img src="data:image/png;base64, {}" id="fractal_image">'.format(plot_url))
 	return jsonify("", render_template("image.html", plot_fractal = plot_fractal))
+
+# Handle zooming
+@app.route("/zoom", methods=["POST"])
+def zoomInFractal():
+	img_x = request.form["img_x"]
+	img_y = request.form["img_y"]
+	return jsonify("Here you return anything you want")
 
 # Render home page from external html file.
 @app.route("/")
