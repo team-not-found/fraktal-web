@@ -21,9 +21,15 @@ $(document).ready(function() {
   // On click on the image send coordinates for zooming
   $(document).bind("click", function(){
     $("#fractal_image").bind("click", function(ev){
+      // To not fire multiple POST requests
+      $(this).off("click");
+
+      // Get parameters of image
       var offset = $(this).offset();
       var relativeX = (ev.pageX - offset.left);
       var relativeY = (ev.pageY - offset.top);
+
+      // Send data and handle response
       $.post({
         url: "/zoom",
         data: {"img_x":relativeX, "img_y":relativeY},
