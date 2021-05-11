@@ -35,9 +35,9 @@ $(document).ready(function() {
         data: {"img_x":relativeX, "img_y":relativeY},
         success: function(response){
           // Handle response
+        alert("word");
         }
       });
     });
   });
-
 });
