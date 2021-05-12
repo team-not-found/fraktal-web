@@ -13,15 +13,16 @@ def generateEncodedFractalImage(fractal_type, fractal_stepsize, fractal_resoluti
 		mat = np.log(np.asarray(fractal.density_map) + 1.0)
 
 		# Plotting
-		fig = Figure()
+		fig = Figure(tight_layout=True)
 		ax = fig.subplots()
 		#ax.matshow(np.random.random((2000, 1000)))
 		ax.matshow(mat)
 		ax.axis("off")
 
+
 		# Encoding
 		buf = io.BytesIO()
-		fig.savefig(buf, format="png")
+		fig.savefig(buf, format="png", bbox_inches="tight", pad_inches=0)
 		buf.seek(0)
 		plot_url = base64.b64encode(buf.getbuffer()).decode("ascii")
 	else:
