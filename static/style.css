@@ -10,7 +10,7 @@ h1 {
 
 body {
     background: rgb(192, 201, 209);
-    font-family: 'Times New Roman', Times, serif
+    font-family: 'Times New Roman', Times, serif;
     font-size: 12px;
 }
 
@@ -53,6 +53,7 @@ div#fractal_holder {
 }
 
 */
+
 select {
     font-size: 15px;
     color: #fff;
