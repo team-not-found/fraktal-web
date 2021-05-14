@@ -82,7 +82,7 @@ def generateEncodedFractalImage(fractal_type, fractal_stepsize, fractal_resoluti
 
 		fractal.generateFractal(int(width), int(height), Mandelbrot.x0, Mandelbrot.y0, Mandelbrot.x1, Mandelbrot.y1, 1000)
 		# Preprocessing (?)
-		mat = np.log(np.asarray(fractal.density_map) + 1.0)
+		mat = np.log(np.asarray(fractal.density_map))
 
 		# Plotting
 		fig = Figure(tight_layout=True)
@@ -92,7 +92,7 @@ def generateEncodedFractalImage(fractal_type, fractal_stepsize, fractal_resoluti
 
 		# Encoding
 		buf = io.BytesIO()
-		fig.savefig(buf, format="png", bbox_inches="tight", pad_inches=0)
+		fig.savefig(buf, format="png", bbox_inches="tight", pad_inches=0, dpi = 300)
 		buf.seek(0)
 		plot_url = base64.b64encode(buf.getbuffer()).decode("ascii")
 		Mandelbrot.isActive = True
@@ -115,6 +115,7 @@ def updateFractal():
 	fractal_stepsize = request.form["stepsize"]
 	fractal_resolution = request.form["resolution"]
 	plot_url = generateEncodedFractalImage(fractal_type, fractal_stepsize, fractal_resolution)
+	# Setting the image size by providing the width and height, they are measured in px.
 	plot_fractal = Markup('<img src="data:image/png;base64, {}" id="fractal_image" width="1920" height="1080">'.format(plot_url))
 	return jsonify("", render_template("image.html", plot_fractal = plot_fractal))
 
@@ -128,6 +129,7 @@ def zoomInFractal():
 		Mandelbrot.zoom(float(img_x), float(img_y))
 
 	plot_url = generateEncodedFractalImage("mandelbrot", 1000, "1920_1080")
+	# Setting the image size by providing the width and height, they are measured in px.
 	plot_fractal = Markup('<img src="data:image/png;base64, {}" id="fractal_image" width="1920" height="1080">'.format(plot_url))
 	return jsonify("", render_template("image.html", plot_fractal = plot_fractal))
 
