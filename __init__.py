@@ -17,6 +17,9 @@ class Mandelbrot():
 	isActive = False
 	zoomFactor = 1.0
 
+	"""
+	Mapping picture pixel coordinates to x y coordinates in R^2.
+	"""
 	def zoom(x, y):
 		Mandelbrot.zoomFactor *= 2
 
