@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!-- Include this to use jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -10,21 +11,21 @@
   <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
   <title>team-not-found</title>
 </head>
+
 <body>
   <h1>Webpage of team-not-found</h1>
   <section>
     <div class="text">
       <form method="post">
-        <label 
-          for="types">Choose a fractal:
+        <label for="types">Choose a fractal:
           <select id="type">
             <option value="fern">Fern</option>
+            <option value="mandelbrot">Mandelbrot</option>
             <option value="other">Other</option>
           </select> 
         </label>
         <br>
-        <label 
-          for="resolutions">Choose resolution:
+        <label for="resolutions">Choose resolution:
           <select id="resolution">
             <option value="1920_1080">1920 X 1080</option>
             <option value="1440_1080">1440 X 1080</option>
@@ -32,8 +33,7 @@
           </select> 
         </label>
         <br>
-        <label 
-          for="stepsizes">Choose stepsize:
+        <label for="stepsizes">Choose stepsize:
           <select id="stepsize">
             <option value="10000000">10,000,000</option>
             <option value="20000000">20,000,000</option>
@@ -44,7 +44,7 @@
         <button id="generate", type="button">Generate!</button>
       </form>
     </div>
-    <div id = "fractal_holder">
+    <div id="fractal_holder">
       {{plot_fractal}}
     </div> 
   </section>
