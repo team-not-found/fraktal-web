@@ -15,7 +15,7 @@ def generateEncodedFractalImage(fractal):
 
 	# Encoding
 	buf = io.BytesIO()
-	fig.savefig(buf, format="png", bbox_inches="tight", pad_inches=0)
+	fig.savefig(buf, format="png", bbox_inches="tight", pad_inches=0, dpi = 600)
 	buf.seek(0)
 	plot_url = base64.b64encode(buf.getbuffer()).decode("ascii")
 	return plot_url
