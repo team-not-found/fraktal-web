@@ -1,21 +1,23 @@
 h1 {
-    color: rgb(8, 17, 139);
+    color:rgb(8, 37, 70);
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 38px;
     font-style: inherit;
     text-align: initial;
     text-transform: capitalize;
     margin: 2rem;
+    margin-bottom: 3rem;
 }
 
 body {
-    background: rgb(192, 201, 209);
-    font-family: 'Times New Roman', Times, serif
+    background: rgb(233, 237, 247);
+    font-family: 'Times New Roman', Times, serif;
     font-size: 12px;
 }
 
 section {
     width: 430px;
+    margin: 1rem;
 }
 
 label {
@@ -30,34 +32,12 @@ label {
     border-top-right-radius: 10px;
 
 }
-/*
 
-div#text{
-    text-align: center;
-    margin-left:inherit;
-    margin-bottom: 10px;
-    white-space: initial;
-    padding:initial;
-    display: grid;
-    grid-column: 2em;
-    border-radius: .3em;
-    box-shadow: 10px 10px 10px rgb(168, 162, 162);
-    position:-webkit-sticky;
-    justify-content: space-between;
-}
-
-div#fractal_holder {
-    margin-left:inherit;
-    margin-bottom: 10px;
-    justify-content: right;
-}
-
-*/
 select {
     font-size: 15px;
     color: #fff;
     background:rgb(34, 68, 139);
-    padding: 8px 30px;
+    padding: 8px 25px;
     margin-top: 2px;
     cursor: pointer;
     box-shadow: 10px 10px 10px rgb(221, 221, 221);
@@ -68,7 +48,7 @@ select {
 }
 
 button {
-    font-size: 20px;
+    font-size: 28px;
     font-weight: bold;
     margin: 3rem;
     background:rgb(205, 226, 195);
@@ -80,7 +60,36 @@ button {
     border-bottom-left-radius: 5px;
 }
 
-/*div{
-    margin-left:inherit;
-    margin-bottom: 10px;
-}*/
+.ball {
+    position:absolute;
+    border-radius: 100%;
+    opacity: 0.3;
+  }
+
+
+.documentation ul{
+    list-style: none;
+    padding: 0;
+    margin: 20px;
+    text-align: right;
+}
+
+documentation li{
+    display: inline-block;
+}
+
+.documentation a{
+    text-decoration: none;
+    color: #fff;
+    width: 100px;
+    display: block;
+    padding: 25px 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: arial;
+    text-align: center;
+}
+
+.documentation a:hover{
+    background: #353640;
+}
