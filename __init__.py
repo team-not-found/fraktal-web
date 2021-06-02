@@ -112,6 +112,10 @@ def zoomInFractal():
 @app.route("/")
 def home():
 	return render_template("index.html", plot_fractal = "")
+	
+@app.route("/documentation") 
+def documentation(): 
+	return render_template("documentation.html")
 
 # Run the server.
 if __name__ == "__main__":
