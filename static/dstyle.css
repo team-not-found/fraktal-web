@@ -14,12 +14,6 @@ h1 {
     margin: 1rem;
     box-sizing: border-box;
 }
-/*
-body{
-    display: flex;
-    height: 100px;
-    font-family: sans-serif;
-}*/
 
 .documentation ul{
     list-style: none;
