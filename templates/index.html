@@ -9,7 +9,7 @@
   <script type="text/javascript" src="{{url_for('static', filename='index.js')}}"></script>
 
   <!-- Include our css file -->
-  <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}"  />
+  <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
   <title>team-not-found</title>
 </head>
 
@@ -17,14 +17,14 @@
   <div class="documentation">
     <ul>
       <!-- Include documentation page -->
-      <li><a href="documentation" >Documentation</a></li>
+      <li><a href="documentation">Documentation</a></li>
     </ul>
   </div>
   <!-- Title -->
   <h1>Webpage of team-not-found</h1>
-  
+
   <section>
-    
+
     <!-- Fractal selector -->
     <div class="text">
       <form method="post">
@@ -32,37 +32,36 @@
           <select id="type">
             <option value="fern">Fern</option>
             <option value="mandelbrot">Mandelbrot</option>
-            <option value="other">Other</option>
-          </select> 
+          </select>
         </label>
-        
+
         <!-- Brake line -->
         <br>
-        
+
         <!-- Resolution selector -->
         <label for="resolutions">Choose resolution:
           <select id="resolution">
             <option value="1920_1080">1920 X 1080</option>
             <option value="1440_1080">1440 X 1080</option>
             <option value="1024_640">1024 X 640</option>
-          </select> 
+          </select>
         </label>
-        
+
         <!-- Brake line -->
         <br>
-        
+
         <!-- Button to generate -->
-        <button id="generate", type="button">Generate!</button>
-      
+        <button id="generate" , type="button">Generate!</button>
+
       </form>
     </div>
-    
+
     <!-- Here comes the image -->
     <!-- Everything put between double brackets are interpreted as syntax in flask -->
     <div id="fractal_holder">
       {{plot_fractal}}
     </div>
-  
+
   </section>
 
 </body>
