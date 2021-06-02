@@ -1,0 +1,56 @@
+h1 {
+    color:rgb(72, 77, 83);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 38px;
+    font-style: inherit;
+    text-align: initial;
+    text-transform: capitalize;
+    margin: 1rem;
+    margin-bottom: 1rem;
+}
+
+*{
+    padding: 0;
+    margin: 1rem;
+    box-sizing: border-box;
+}
+/*
+body{
+    display: flex;
+    height: 100px;
+    font-family: sans-serif;
+}*/
+
+.documentation ul{
+    list-style: none;
+    padding: 0;
+    margin: 2px;
+    text-align: left;
+}
+
+.documentation li{
+    display: inline-block;
+}
+
+.documentation a{
+    text-decoration: none;
+    color: #404547;
+    width: 150px;
+    display: block;
+    padding: 25px 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: arial;
+    text-align: left;
+}
+
+.documentation a:hover{
+    background: #429e47;
+}
+
+.links ul{
+    list-style: none;
+    padding: 0;
+    margin: 2px;
+    text-align: left;
+}
